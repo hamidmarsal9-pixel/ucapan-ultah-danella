@@ -1,37 +1,1042 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selamat Ulang Tahun!</title>
-    <style>
-        body { font-family: Arial, sans-serif; background: linear-gradient(to bottom, #ff9a9e, #fecfef); text-align: center; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); max-width: 400px; width: 85%; }
-        h1 { color: #ff4d6d; font-size: 24px; }
-        p { font-size: 16px; line-height: 1.5; color: #333; }
-        button { background-color: #ff4d6d; color: white; border: none; padding: 12px 25px; font-size: 16px; border-radius: 25px; cursor: pointer; margin-top: 15px; }
-        .hidden { display: none; }
-        .emoji { font-size: 40px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For Danella ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    overflow: hidden;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3, #ffd1dc);
+    color: #fff;
+}
+
+/* =========================
+   GENERAL
+========================= */
+
+.screen {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    transition: opacity 1s ease, visibility 1s ease;
+}
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* =========================
+   COUNTDOWN
+========================= */
+
+#countdownScreen {
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.18), transparent 25%),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,.15), transparent 25%),
+        linear-gradient(135deg, #ff758c, #ff7eb3);
+    text-align: center;
+}
+
+.countdown-box {
+    width: min(90%, 500px);
+    padding: 35px 25px;
+    border-radius: 30px;
+    background: rgba(255,255,255,.13);
+    border: 1px solid rgba(255,255,255,.25);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 20px 60px rgba(100,0,40,.25);
+}
+
+.small-title {
+    font-size: 14px;
+    letter-spacing: 4px;
+    opacity: .85;
+    text-transform: uppercase;
+}
+
+.countdown-box h1 {
+    font-size: clamp(28px, 7vw, 48px);
+    margin: 15px 0;
+}
+
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 25px 0;
+}
+
+.time {
+    width: 75px;
+    padding: 15px 5px;
+    border-radius: 18px;
+    background: rgba(255,255,255,.18);
+}
+
+.time span {
+    display: block;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.time small {
+    font-size: 11px;
+    opacity: .8;
+}
+
+.waiting {
+    font-size: 14px;
+    opacity: .85;
+}
+
+/* =========================
+   PASSWORD
+========================= */
+
+#passwordScreen {
+    background: linear-gradient(135deg, #ff9a9e, #fecfef);
+}
+
+.password-card {
+    position: relative;
+    width: min(90%, 420px);
+    padding: 35px 25px;
+    text-align: center;
+    background: rgba(255,255,255,.88);
+    color: #333;
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(120,20,60,.2);
+    overflow: hidden;
+}
+
+.decor {
+    position: absolute;
+    font-size: 25px;
+    animation: float 3s infinite ease-in-out;
+}
+
+.d1 { top: 15px; left: 20px; }
+.d2 { top: 25px; right: 25px; animation-delay: .5s; }
+.d3 { bottom: 20px; left: 25px; animation-delay: 1s; }
+.d4 { bottom: 15px; right: 25px; animation-delay: 1.5s; }
+
+.password-card h1 {
+    color: #ff4d6d;
+    margin-top: 15px;
+}
+
+.password-card p {
+    color: #666;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid #ffd0da;
+    border-radius: 15px;
+    outline: none;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+input:focus {
+    border-color: #ff4d6d;
+}
+
+button {
+    border: none;
+    padding: 13px 28px;
+    border-radius: 30px;
+    background: #ff4d6d;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: .25s;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: #ff3358;
+}
+
+.error {
+    color: #ff3358;
+    font-size: 13px;
+    height: 18px;
+    margin-top: 8px;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+#loadingScreen {
+    background: #16121a;
+    flex-direction: column;
+    text-align: center;
+}
+
+.loader-heart {
+    font-size: 60px;
+    animation: heartbeat 1s infinite;
+}
+
+.loading-title {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.progress-container {
+    width: min(80%, 350px);
+    height: 8px;
+    background: rgba(255,255,255,.15);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.progress {
+    width: 0%;
+    height: 100%;
+    background: #ff4d6d;
+    transition: width .1s linear;
+}
+
+/* =========================
+   BOOM
+========================= */
+
+#boomScreen {
+    background: #080808;
+    text-align: center;
+}
+
+.boom-text {
+    font-size: clamp(60px, 18vw, 150px);
+    font-weight: 900;
+    color: white;
+    opacity: 0;
+    transform: scale(.2);
+}
+
+.boom-text.show {
+    animation: boom .9s forwards;
+}
+
+/* =========================
+   SURPRISE
+========================= */
+
+#surpriseScreen {
+    background:
+        radial-gradient(circle at center, rgba(255,100,150,.3), transparent 40%),
+        linear-gradient(135deg, #180c16, #3b1029);
+    overflow-y: auto;
+}
+
+.surprise-content {
+    width: min(90%, 650px);
+    text-align: center;
+    padding: 30px 15px;
+}
+
+.photo {
+    width: min(75vw, 300px);
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 25px;
+    border: 5px solid rgba(255,255,255,.8);
+    box-shadow: 0 20px 60px rgba(0,0,0,.45);
+    animation: photoAppear 1.5s ease forwards;
+}
+
+.surprise-content h1 {
+    font-size: clamp(30px, 8vw, 55px);
+    margin: 25px 0 10px;
+}
+
+.surprise-content p {
+    font-size: 17px;
+    opacity: .9;
+}
+
+.next-btn {
+    background: white;
+    color: #ff4d6d;
+}
+
+/* =========================
+   STORY
+========================= */
+
+#storyScreen {
+    overflow-y: auto;
+    align-items: flex-start;
+    padding-top: 70px;
+    padding-bottom: 70px;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.15), transparent 25%),
+        linear-gradient(135deg, #20101a, #5b1b3d);
+}
+
+.story {
+    width: min(90%, 700px);
+    text-align: center;
+}
+
+.story-label {
+    letter-spacing: 5px;
+    font-size: 12px;
+    opacity: .65;
+}
+
+.story h1 {
+    font-size: clamp(32px, 8vw, 60px);
+    margin: 15px 0 35px;
+}
+
+.quote {
+    padding: 28px 20px;
+    margin: 25px 0;
+    border-radius: 25px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.12);
+    backdrop-filter: blur(10px);
+}
+
+.quote p {
+    font-size: clamp(18px, 4vw, 25px);
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.quote small {
+    opacity: .65;
+}
+
+/* =========================
+   FINAL
+========================= */
+
+#finalScreen {
+    overflow-y: auto;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    text-align: center;
+}
+
+.final-card {
+    width: min(90%, 600px);
+    padding: 35px 25px;
+}
+
+.final-card h1 {
+    font-size: clamp(35px, 9vw, 65px);
+}
+
+.final-message {
+    font-size: 18px;
+    line-height: 1.8;
+    white-space: pre-line;
+}
+
+/* =========================
+   CONFETTI
+========================= */
+
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 15px;
+    top: -20px;
+    z-index: 9999;
+    animation: fall linear forwards;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes heartbeat {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes boom {
+    0% {
+        opacity: 0;
+        transform: scale(.2);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.3);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes photoAppear {
+    0% {
+        opacity: 0;
+        transform: scale(.5) rotate(-5deg);
+    }
+    70% {
+        transform: scale(1.05) rotate(2deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+    }
+}
+
+.shake {
+    animation: shake .4s;
+}
+
+@keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+/* mobile */
+@media(max-width: 450px) {
+    .countdown {
+        gap: 5px;
+    }
+
+    .time {
+        width: 65px;
+    }
+
+    .time span {
+        font-size: 22px;
+    }
+}
+</style>
 </head>
+
 <body>
-    <div class="card" id="hal1">
-        <div class="emoji">🎈🎂🎁</div>
-        <h1>Hai Danellaa!</h1>
-        <p>maaf yee buat kau sedih teyuss</p>
-        <button onclick="pindah()">Buka Pesan</button>
+
+<!-- =========================
+     COUNTDOWN
+========================= -->
+
+<section id="countdownScreen" class="screen">
+
+    <div class="countdown-box">
+
+        <div class="small-title">
+            A little surprise is waiting
+        </div>
+
+        <h1>For Danella ❤️</h1>
+
+        <p>
+            Something special will be unlocked on
+            <br>
+            <b>4 October 2026 — 00:00 WIB</b>
+        </p>
+
+        <div class="countdown">
+
+            <div class="time">
+                <span id="days">00</span>
+                <small>DAYS</small>
+            </div>
+
+            <div class="time">
+                <span id="hours">00</span>
+                <small>HOURS</small>
+            </div>
+
+            <div class="time">
+                <span id="minutes">00</span>
+                <small>MINUTES</small>
+            </div>
+
+            <div class="time">
+                <span id="seconds">00</span>
+                <small>SECONDS</small>
+            </div>
+
+        </div>
+
+        <div class="waiting" id="waitingText">
+            Come back when the clock reaches midnight...
+        </div>
+
     </div>
-    <div class="card hidden" id="hal2">
-        <div class="emoji">💖✨🎉</div>
-        <h1>Selamat Ultah ke-14 Tahun!</h1>
-        <p>semoga suksess bee dan doake aku sukses jugo ee</p>
-        <button onclick="alert('Makasih lah baca! Hubungi aku sekarang ya! 🤍')">Klik Ini Sayang 🤍</button>
+
+</section>
+
+
+<!-- =========================
+     PASSWORD
+========================= -->
+
+<section id="passwordScreen" class="screen hidden">
+
+    <div class="password-card" id="passwordCard">
+
+        <div class="decor d1">💗</div>
+        <div class="decor d2">✨</div>
+        <div class="decor d3">🎀</div>
+        <div class="decor d4">🌷</div>
+
+        <div style="font-size:55px;">🔐</div>
+
+        <h1>One Little Secret</h1>
+
+        <p>
+            Sebelum masuk, kamu harus tahu
+            password-nya dulu 👀
+        </p>
+
+        <input
+            type="password"
+            id="passwordInput"
+            placeholder="Enter the password..."
+            autocomplete="off"
+        >
+
+        <button onclick="checkPassword()">
+            Unlock ❤️
+        </button>
+
+        <div class="error" id="errorText"></div>
+
     </div>
-    <script>
-        function pindah() {
-            document.getElementById('hal1').classList.add('hidden');
-            document.getElementById('hal2').classList.remove('hidden');
+
+</section>
+
+
+<!-- =========================
+     LOADING
+========================= -->
+
+<section id="loadingScreen" class="screen hidden">
+
+    <div class="loader-heart">❤️</div>
+
+    <div class="loading-title" id="loadingTitle">
+        Preparing your surprise...
+    </div>
+
+    <div class="progress-container">
+        <div class="progress" id="progress"></div>
+    </div>
+
+</section>
+
+
+<!-- =========================
+     BOOM
+========================= -->
+
+<section id="boomScreen" class="screen hidden">
+
+    <div class="boom-text" id="boomText">
+        BOOM! 🎉
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SURPRISE
+========================= -->
+
+<section id="surpriseScreen" class="screen hidden">
+
+    <div class="surprise-content">
+
+        <img
+            src="fotodan1.jpg"
+            alt="Danella"
+            class="photo"
+        >
+
+        <h1>Happy Birthday, Danella! 🎂</h1>
+
+        <p>
+            Finally... your little surprise is here. ❤️
+        </p>
+
+        <button class="next-btn" onclick="showStory()">
+            There's something else...
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     STORY
+========================= -->
+
+<section id="storyScreen" class="screen hidden">
+
+    <div class="story">
+
+        <div class="story-label">
+            A LITTLE STORY
+        </div>
+
+        <h1>Maybe It's Like Us...</h1>
+
+        <div class="quote">
+
+            <p>
+                "Some stories don't begin with a first meeting.
+                They begin with growing up together."
+            </p>
+
+        </div>
+
+        <div class="quote">
+
+            <p>
+                "Maybe we're not Messi and Antonela,
+                but I like the idea of two people
+                who have known each other since they were young,
+                and somehow kept finding their way back to each other."
+            </p>
+
+        </div>
+
+        <div class="quote">
+
+            <p>
+                "Life changes, people grow,
+                and the future is impossible to predict.
+                But some people become part of our story
+                without us even realizing it."
+            </p>
+
+        </div>
+
+        <div class="quote">
+
+            <p>
+                "And maybe that's what makes
+                a story worth remembering."
+            </p>
+
+        </div>
+
+        <button onclick="showFinal()">
+            One Last Thing 🤍
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FINAL
+========================= -->
+
+<section id="finalScreen" class="screen hidden">
+
+    <div class="final-card">
+
+        <div style="font-size:60px;">
+            🎂❤️✨
+        </div>
+
+        <h1>
+            Happy 14th Birthday!
+        </h1>
+
+        <div class="final-message">
+maaf yee buat kau sedih teyuss.
+
+semoga suksess bee
+dan doake aku sukses jugo ee.
+
+Semoga tahun ini membawa
+banyak hal baik buat kau.
+
+Keep growing.
+Keep smiling.
+And don't forget how special you are. ❤️
+        </div>
+
+        <p style="margin-top:35px; opacity:.75;">
+            — from someone who wishes you the best
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- MUSIC -->
+
+<audio id="birthdayMusic" loop>
+    <source src="ultah1.mp3" type="audio/mpeg">
+</audio>
+
+
+<script>
+
+/* ==================================
+   COUNTDOWN
+   4 OCTOBER 2026 - 00:00 WIB
+================================== */
+
+const targetDate = new Date("2026-10-04T00:00:00+07:00");
+
+const countdownScreen =
+    document.getElementById("countdownScreen");
+
+const passwordScreen =
+    document.getElementById("passwordScreen");
+
+function updateCountdown() {
+
+    const now = new Date();
+    const difference = targetDate - now;
+
+    if (difference <= 0) {
+
+        countdownScreen.classList.add("hidden");
+        passwordScreen.classList.remove("hidden");
+
+        return;
+    }
+
+    const days =
+        Math.floor(difference / (1000 * 60 * 60 * 24));
+
+    const hours =
+        Math.floor(
+            (difference / (1000 * 60 * 60)) % 24
+        );
+
+    const minutes =
+        Math.floor(
+            (difference / (1000 * 60)) % 60
+        );
+
+    const seconds =
+        Math.floor(
+            (difference / 1000) % 60
+        );
+
+    document.getElementById("days").textContent =
+        String(days).padStart(2, "0");
+
+    document.getElementById("hours").textContent =
+        String(hours).padStart(2, "0");
+
+    document.getElementById("minutes").textContent =
+        String(minutes).padStart(2, "0");
+
+    document.getElementById("seconds").textContent =
+        String(seconds).padStart(2, "0");
+}
+
+updateCountdown();
+
+setInterval(updateCountdown, 1000);
+
+
+/* ==================================
+   PASSWORD
+================================== */
+
+function checkPassword() {
+
+    const input =
+        document.getElementById("passwordInput").value;
+
+    const error =
+        document.getElementById("errorText");
+
+    const card =
+        document.getElementById("passwordCard");
+
+    if (input.toLowerCase().trim() === "nasi goreng") {
+
+        error.textContent = "";
+
+        passwordScreen.classList.add("hidden");
+
+        startLoading();
+
+    } else {
+
+        error.textContent =
+            "Password-nya salah 😭 coba lagi.";
+
+        card.classList.remove("shake");
+
+        void card.offsetWidth;
+
+        card.classList.add("shake");
+    }
+}
+
+
+/* ==================================
+   LOADING
+================================== */
+
+function startLoading() {
+
+    const loadingScreen =
+        document.getElementById("loadingScreen");
+
+    loadingScreen.classList.remove("hidden");
+
+    const progress =
+        document.getElementById("progress");
+
+    const title =
+        document.getElementById("loadingTitle");
+
+    let value = 0;
+
+    const interval = setInterval(() => {
+
+        value++;
+
+        progress.style.width = value + "%";
+
+        if (value === 30) {
+            title.textContent =
+                "Getting everything ready... ✨";
         }
-    </script>
+
+        if (value === 60) {
+            title.textContent =
+                "Almost there... ❤️";
+        }
+
+        if (value === 85) {
+            title.textContent =
+                "Something special is coming...";
+        }
+
+        if (value >= 100) {
+
+            clearInterval(interval);
+
+            setTimeout(() => {
+
+                loadingScreen.classList.add("hidden");
+
+                showBoom();
+
+            }, 300);
+
+        }
+
+    }, 50);
+}
+
+
+/* ==================================
+   BOOM
+================================== */
+
+function showBoom() {
+
+    const boomScreen =
+        document.getElementById("boomScreen");
+
+    const boomText =
+        document.getElementById("boomText");
+
+    boomScreen.classList.remove("hidden");
+
+    boomText.classList.add("show");
+
+    createConfetti();
+
+    setTimeout(() => {
+
+        boomScreen.classList.add("hidden");
+
+        document
+            .getElementById("surpriseScreen")
+            .classList.remove("hidden");
+
+        playMusic();
+
+    }, 1800);
+}
+
+
+/* ==================================
+   MUSIC
+================================== */
+
+function playMusic() {
+
+    const music =
+        document.getElementById("birthdayMusic");
+
+    music.volume = 0.7;
+
+    music.play().catch(() => {
+
+        /*
+        Browser tertentu bisa memblokir
+        autoplay. Jika itu terjadi,
+        pengguna cukup melakukan klik.
+        */
+
+        document.addEventListener(
+            "click",
+            () => music.play(),
+            { once: true }
+        );
+
+    });
+}
+
+
+/* ==================================
+   STORY
+================================== */
+
+function showStory() {
+
+    document
+        .getElementById("surpriseScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("storyScreen")
+        .classList.remove("hidden");
+
+    window.scrollTo(0, 0);
+}
+
+
+/* ==================================
+   FINAL
+================================== */
+
+function showFinal() {
+
+    document
+        .getElementById("storyScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("finalScreen")
+        .classList.remove("hidden");
+
+    createConfetti();
+}
+
+
+/* ==================================
+   CONFETTI
+================================== */
+
+function createConfetti() {
+
+    const symbols = [
+        "❤️",
+        "💗",
+        "✨",
+        "🎉",
+        "💖",
+        "🌸",
+        "🎀"
+    ];
+
+    for (let i = 0; i < 70; i++) {
+
+        const confetti =
+            document.createElement("div");
+
+        confetti.className = "confetti";
+
+        confetti.textContent =
+            symbols[
+                Math.floor(
+                    Math.random() * symbols.length
+                )
+            ];
+
+        confetti.style.left =
+            Math.random() * 100 + "vw";
+
+        confetti.style.fontSize =
+            (10 + Math.random() * 15) + "px";
+
+        confetti.style.animationDuration =
+            (2 + Math.random() * 4) + "s";
+
+        confetti.style.animationDelay =
+            Math.random() * 1.5 + "s";
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+            confetti.remove();
+        }, 6500);
+    }
+}
+
+
+/* ==================================
+   ENTER KEY FOR PASSWORD
+================================== */
+
+document
+    .getElementById("passwordInput")
+    .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+            checkPassword();
+        }
+
+    });
+
+</script>
+
 </body>
-</html>
+    </html>
