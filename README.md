@@ -1,2 +1,2 @@
-# ucapan-ultah-danella
+# ucapan-ultah-
 ulth ke 14
